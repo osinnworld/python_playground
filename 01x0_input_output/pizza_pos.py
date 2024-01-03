@@ -11,8 +11,16 @@ topping_prices = {
     8: {'name': 'pineapple', 'price': 300}
 }
 
+crust_prices = {
+    'thin_crust': 100,
+    'thick_crust': 150,
+    'stuffed_crust': 200,
+    'gluten_free_crust': 120
+}
+
 while True:
     bill = 0
+    selected_options = []
 
     size = input(f"\n:) Pizza Size(S/M/L) (Type 'EXIT' to end): ")
 
@@ -23,15 +31,24 @@ while True:
         print(":( Error: Invalid Input")
         continue
 
+    crust = input("\nSelect crust option:\n1. Thin Crust\n2. Thick Crust\n3. Stuffed Crust\n4. Gluten-free Crust\nEnter the number: ")
+    if crust.isdigit() and 1 <= int(crust) <= len(crust_prices):
+        crust_option = list(crust_prices.keys())[int(crust) - 1]
+        bill += crust_prices[crust_option]
+        selected_options.append(f"Selected Crust: {crust_option.replace('_', ' ').title()}")
+    else:
+        print(":( Error: Invalid Crust Option")
+        continue
+
     if size.lower() == 's':
         bill += 800
-        print(f"Small Pizza: KES{bill:,.2f}")
+        selected_options.append("Small Pizza")
     elif size.lower() == 'm':
         bill += 1000
-        print(f"Medium Pizza: KES{bill:,.2f}")
+        selected_options.append("Medium Pizza")
     elif size.lower() == 'l':
         bill += 1500
-        print(f"Large Pizza: KES{bill:,.2f}")
+        selected_options.append("Large Pizza")
 
     toppings = {}
     while True:
@@ -44,17 +61,18 @@ while True:
             break
         elif topping_choice.isdigit() and 1 <= int(topping_choice) <= len(topping_prices):
             quantity = int(input("Enter the quantity: "))
-            toppings[topping_choice] = quantity
+            topping_info = topping_prices[int(topping_choice)]
+            topping_name = topping_info['name']
+            topping_price = topping_info['price'] * quantity
+            bill += topping_price
+            toppings[topping_name] = quantity
+            selected_options.append(f"Add {quantity} {topping_name.replace('_', ' ').title()}: KES{topping_price:,.2f}")
         else:
             print(":( Error: Invalid Topping")
 
-    for topping_choice, quantity in toppings.items():
-        topping_info = topping_prices[int(topping_choice)]
-        topping_name = topping_info['name']
-        topping_price = topping_info['price'] * quantity
-        bill += topping_price
-        print(f"Add {quantity} {topping_name.replace('_', ' ').title()}: KES{topping_price:,.2f}")
-
+    print("\nYour Order Summary:")
+    for option in selected_options:
+        print(option)
     print("________________________________")
     print(f"Total: KES{bill:,.2f}")
 
