@@ -19,6 +19,8 @@ crust_prices = {
     'gluten_free_crust': 120
 }
 
+total_order_price = 0
+
 while True:
     bill = 0
     selected_options = []
@@ -78,5 +80,10 @@ while True:
     for option in selected_options:
         print(option)
     print("________________________________")
-    print(f"Total: KES{bill:,.2f}")
+    print(f"Total for this pizza: KES{bill:,.2f}")
+
+    total_order_price += bill
+    print(f"Running Total: KES{total_order_price:,.2f}")
+
+print("\nThank you for ordering!")
 
