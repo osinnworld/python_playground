@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from prettytable import PrettyTable
 
 topping_prices = {
     1: {'name': 'pepperoni', 'price': 300},
@@ -35,27 +36,30 @@ while True:
     if crust.isdigit() and 1 <= int(crust) <= len(crust_prices):
         crust_option = list(crust_prices.keys())[int(crust) - 1]
         bill += crust_prices[crust_option]
-        selected_options.append(f"Selected Crust: {crust_option.replace('_', ' ').title()}")
+        selected_options.append(f"Selected Crust: {crust_option.replace('_', ' ').title()} - KES{crust_prices[crust_option]:,.2f}")
     else:
         print(":( Error: Invalid Crust Option")
         continue
 
     if size.lower() == 's':
         bill += 800
-        selected_options.append("Small Pizza")
+        selected_options.append("Pizza Size: Small - KES800.00")
     elif size.lower() == 'm':
         bill += 1000
-        selected_options.append("Medium Pizza")
+        selected_options.append("Pizza Size: Medium - KES1000.00")
     elif size.lower() == 'l':
         bill += 1500
-        selected_options.append("Large Pizza")
+        selected_options.append("Pizza Size: Large - KES1500.00")
+
+    toppings_table = PrettyTable(['Topping Number', 'Topping Name', 'Price'])
+    for key, value in topping_prices.items():
+        toppings_table.add_row([key, value['name'].replace('_', ' ').title(), f"KES{value['price']:.2f}"])
+
+    print("\nAvailable Toppings:")
+    print(toppings_table)
 
     toppings = {}
     while True:
-        print("\nAvailable Toppings:")
-        for key, value in topping_prices.items():
-            print(f"{key}. {value['name'].replace('_', ' ').title()} - KES{value['price']:.2f}")
-
         topping_choice = input("\nEnter the number of a topping (Type 'DONE' when finished): ")
         if topping_choice.lower() == 'done':
             break
@@ -66,7 +70,7 @@ while True:
             topping_price = topping_info['price'] * quantity
             bill += topping_price
             toppings[topping_name] = quantity
-            selected_options.append(f"Add {quantity} {topping_name.replace('_', ' ').title()}: KES{topping_price:,.2f}")
+            selected_options.append(f"{topping_name.replace('_', ' ').title()} - KES{topping_price:,.2f} x {quantity}")
         else:
             print(":( Error: Invalid Topping")
 
