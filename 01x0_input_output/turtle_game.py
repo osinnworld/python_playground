@@ -2,68 +2,80 @@
 
 import turtle
 
-# named constants
-s_width = 600
-s_height = 600
-t_left_x = 100
-t_left_y = 250
-t_width = 25
-ff = 30
-ps = 1
-n = 90
-s = 270
-e = 0
-w = 180
+# Named constants
+S_WIDTH = 600
+S_HEIGHT = 600
+T_LEFT_X = 100
+T_LEFT_Y = 250
+T_WIDTH = 25
+FF = 30
+PS = 1
+N = 90
+S = 270
+E = 0
+W = 180
 
-# setup window
-turtle.setup(s_width, s_height)
+def setup():
+    turtle.setup(S_WIDTH, S_HEIGHT)
 
-# draw the target
-turtle.hideturtle()
-turtle.speed(0)
-turtle.penup()
-turtle.goto(t_left_x, t_left_y)
-turtle.pendown()
-turtle.setheading(e)
-turtle.forward(t_width)
-turtle.setheading(n)
-turtle.forward(t_width)
-turtle.setheading(w)
-turtle.forward(t_width)
-turtle.setheading(s)
-turtle.forward(t_width)
-turtle.penup()
+def draw_target():
+    turtle.hideturtle()
+    turtle.speed(0)
+    turtle.penup()
+    turtle.goto(T_LEFT_X, T_LEFT_Y)
+    turtle.pendown()
+    turtle.setheading(E)
+    turtle.forward(T_WIDTH)
+    turtle.setheading(N)
+    turtle.forward(T_WIDTH)
+    turtle.setheading(W)
+    turtle.forward(T_WIDTH)
+    turtle.setheading(S)
+    turtle.forward(T_WIDTH)
+    turtle.penup()
 
-# centre the turtle
-turtle.goto(0, 0)
-turtle.setheading(e)
-turtle.showturtle()
-turtle.speed(ps)
+def launch_projectile():
+    # get the angle and force from the user
+    angle = float(input("Enter projectile's Angle: "))
+    force = float(input("Enter the launch force (1-10): "))
 
-# get the angle and force from the user
-angle = float(input("Enter projectile's Angle: "))
-force = float(input("Enter the launch force (1-10): "))
+    # calculate the distance
+    distance = force * FF
 
-# calculate the distance
-distance = force * ff
+    # set the heading
+    turtle.setheading(angle)
 
-# set the heading
-turtle.setheading(angle)
+    # launch the projectile
+    turtle.pendown()
+    turtle.forward(distance)
 
-# launch the projectile
-turtle.pendown()
-turtle.forward(distance)
+    # did it hit the target?
+    if (
+        turtle.xcor() >= T_LEFT_X
+        and turtle.xcor() <= (T_LEFT_X + T_WIDTH)
+        and turtle.ycor() >= T_LEFT_Y
+        and turtle.ycor() <= (T_LEFT_Y + T_WIDTH)
+    ):
+        print("Target Hit!")
+    else:
+        print("You Missed The Target")
 
-# did it hit the target?
-if (
-    turtle.xcor() >= t_left_x
-    and turtle.xcor() <= (t_left_x + t_width)
-    and turtle.ycor() >= t_left_y
-    and turtle.ycor() <= (t_left_y + t_width)
-):
-    print("Target Hit!")
-else:
-    print("You Missed The Target")
+    # Reset turtle position to (0, 0)
+    turtle.goto(0, 0)
 
-turtle.done()
+def main():
+    setup()
+    draw_target()
+
+    while True:
+        launch_projectile()
+
+        play_again = input("Do you want to play again? (yes/no): ").lower()
+        if play_again != 'yes':
+            break
+
+    turtle.done()
+
+if __name__ == "__main__":
+    main()
 
