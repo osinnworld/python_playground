@@ -8,4 +8,4 @@ Data analysis with Pandas
 Web development with Flask
 Automation with scripting
 Game development with Pygame
-And more to come!Here is REadme
+And more to come!
