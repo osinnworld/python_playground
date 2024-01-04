@@ -1,40 +1,5 @@
 #!/usr/bin/python3
-
-"""
-Pizza Order Program
-
-This program allows a user to fully customize and order a pizza. They can choose the crust, size, and toppings. It calculates the total cost of their order.
-
-Features:
-
-- Select crust type (thin, thick, stuffed, gluten-free)  
-- Select pizza size (small, medium, large)
-- Add a variety of pizza toppings
-    - Each topping has a predefined price per quantity
-- Option to upgrade pizza size for an additional cost
-- Calculates total cost of order
-- Maintains running total for all pizzas ordered
-
-Inputs:
-- User selects inputs via terminal prompts
-    - Validation on inputs (loops until valid)
-- Text input converted to appropriate data types for calculations
-
-Outputs: 
-- Printed order summary displaying all selections
-- Printed order total cost  
-- Printed running total of all orders
-
-Data Structures Used:
-- Dictionaries to store topping, crust, size options and pricing
-- List to store selected order options 
-- PrettyTable library prints topping options in tabular format
-
-Additional Capabilities:
-- Could enhance with login system to save order history per user
-- Integrate with real payment system
-- Add more customization options like combo deals
-"""
+# Pizza Order Program
 
 from prettytable import PrettyTable
 
@@ -79,7 +44,7 @@ while True:
     bill = 0
     options = []
 
-    size = get_input("Choose a")
+    size = get_input(":) Choose a")
 
     if size == 'exit':
         break
