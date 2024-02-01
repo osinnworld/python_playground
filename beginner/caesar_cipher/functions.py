@@ -2,29 +2,22 @@
 
 import string
 
-# Function to encrypt the message
-def encrypt(msg, shift):
-    alphabet = string.ascii_letters + string.punctuation + string.digits
-    n_alpha = ''
-    for char in msg:
-        if char in alphabet:
-            pos = alphabet.index(char)
-            n_pos = (pos + shift) % len(alphabet)
-            n_alpha += alphabet[n_pos]
-        else:
-            n_alpha += char
-    return n_alpha
+alphabet = string.ascii_letters + string.punctuation + string.digits
 
-# Function to decrypt the message
-def decrypt(msg, shift):
-    alphabet = string.ascii_letters + string.punctuation + string.digits
-    n_alpha = ''
-    for char in msg:
-        if char in alphabet:
-            pos = alphabet.index(char)
-            n_pos = (pos - shift) % len(alphabet)
-            n_alpha += alphabet[n_pos]
+# Caesar cipher function
+def caesar(msg, shift, direction):
+    n_alpha = ""
+    for i in msg:
+        pos = alphabet.find(i)
+        if i in alphabet:
+            if direction.lower() == "e":
+                n_pos = (pos + shift) % len(alphabet)
+                n_alpha += alphabet[n_pos]
+            elif direction.lower() == "d":
+                n_pos = (pos - shift) % len(alphabet)
+                n_alpha += alphabet[n_pos]
+            else:
+                print("Invalid Input")
         else:
-            n_alpha += char
+            n_alpha += i
     return n_alpha
-

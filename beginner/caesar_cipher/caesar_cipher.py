@@ -1,20 +1,20 @@
 #!/usr/bin/python3
 
-from functions import decrypt, encrypt
+from functions import caesar
 
-# Main program
-option = input("Type 'E' for encrypt or 'D' for decrypt: ").upper()
-
-if option == 'E':
+more = True  # Initialize more to True
+while more:
+    direction = input("\nType 'E' for encrypt or 'D' for decrypt: ").upper()
     message = input("Enter message to encrypt: ")
     shift = int(input("Enter shift: "))
-    encrypted_msg = encrypt(message, shift)
-    print("Encrypted message:", encrypted_msg)
-elif option == 'D':
-    message = input("Enter message to decrypt: ")
-    shift = int(input("Enter shift: "))
-    decrypted_msg = decrypt(message, shift)
-    print("Decrypted message:", decrypted_msg)
-else:
-    print("Invalid input")
+    new_msg = caesar(msg=message, shift=shift, direction=direction)
+
+    print(f"New message: {new_msg}")
+
+    more = input("Continue: y/n:  ").lower()
+
+    if more == 'n':
+        break  # Exit the loop if the user chooses to stop
+    elif more != 'y':
+        print("Invalid input")
 
